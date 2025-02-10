@@ -13,7 +13,7 @@ train_datagen = ImageDataGenerator(rescale=1./255)
 
 # Charger les images d'entraînement à partir du dossier 'img'
 train_generator = train_datagen.flow_from_directory(
-    'img',
+    '/img',
     target_size=(img_height, img_width),
     batch_size=32,
     class_mode='binary')
