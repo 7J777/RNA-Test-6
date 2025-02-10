@@ -24,7 +24,7 @@ jobs:
       run: python RNA/entrainement.py
 
     - name: Upload model as artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: trained-model
         path: RNA/model.h5
