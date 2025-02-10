@@ -1,7 +1,7 @@
 import os
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
-from keras.layers import Dense, Conv2D, Flatten
+from keras.layers import Dense, Flatten
 
 # Afficher le contenu du répertoire
 data_dir = '/img'
@@ -9,6 +9,10 @@ print(f"Contenu de {data_dir} :")
 for root, dirs, files in os.walk(data_dir):
     for name in files:
         print(os.path.join(root, name))
+
+# Vérifier s'il y a des images dans le répertoire
+if not any(file.endswith(('png', 'jpg', 'jpeg')) for file in os.listdir(data_dir)):
+    raise ValueError(f"Aucune image trouvée dans le répertoire {data_dir}.")
 
 # Configuration du générateur de données
 datagen = ImageDataGenerator(rescale=1./255)
