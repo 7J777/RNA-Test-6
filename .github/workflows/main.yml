@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest  # Changez ceci à windows-latest ou macos-latest si nécessaire
+    runs-on: macos-latest  # Changez ceci à windows-latest ou ubuntu-latest si nécessaire
 
     steps:
     - name: Checkout repository
@@ -22,7 +22,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install keras pillow numpy tensorflow  # Ajoutez tensorflow ici
+        pip install keras pillow numpy tensorflow scipy  # Ajoutez scipy ici
 
     - name: Run training script
       run: |
