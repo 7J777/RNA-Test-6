@@ -3,6 +3,8 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
 from keras.layers import Dense, Flatten
 
+print("Début du script")
+
 # Afficher le contenu du répertoire
 data_dir = '/img'
 print(f"Contenu de {data_dir} :")
@@ -14,6 +16,8 @@ for root, dirs, files in os.walk(data_dir):
 if not any(file.endswith(('png', 'jpg', 'jpeg')) for file in os.listdir(data_dir)):
     raise ValueError(f"Aucune image trouvée dans le répertoire {data_dir}.")
 
+print("Images trouvées")
+
 # Configuration du générateur de données
 datagen = ImageDataGenerator(rescale=1./255)
 try:
@@ -24,6 +28,7 @@ try:
         class_mode=None,  # Utilisez None si vous n'avez pas de classes
         shuffle=True
     )
+    print("Générateur de données créé")
 except Exception as e:
     print(f"Erreur lors de la création du générateur de données: {e}")
     raise
@@ -40,8 +45,11 @@ try:
 
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
+    print("Modèle créé et compilé")
+
     # Entraînement du modèle
     model.fit(train_generator, epochs=10)
+    print("Entraînement du modèle terminé")
 except Exception as e:
     print(f"Erreur lors de l'entraînement du modèle: {e}")
     raise
