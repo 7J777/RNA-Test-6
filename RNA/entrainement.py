@@ -16,24 +16,32 @@ if not any(file.endswith(('png', 'jpg', 'jpeg')) for file in os.listdir(data_dir
 
 # Configuration du générateur de données
 datagen = ImageDataGenerator(rescale=1./255)
-train_generator = datagen.flow_from_directory(
-    data_dir,
-    target_size=(150, 150),
-    batch_size=32,
-    class_mode=None,  # Utilisez None si vous n'avez pas de classes
-    shuffle=True
-)
+try:
+    train_generator = datagen.flow_from_directory(
+        data_dir,
+        target_size=(150, 150),
+        batch_size=32,
+        class_mode=None,  # Utilisez None si vous n'avez pas de classes
+        shuffle=True
+    )
+except Exception as e:
+    print(f"Erreur lors de la création du générateur de données: {e}")
+    raise
 
 # Modèle avec l'architecture 5000 -> 500 -> 50 -> 1
-model = Sequential([
-    Flatten(input_shape=(150, 150, 3)),
-    Dense(5000, activation='relu'),
-    Dense(500, activation='relu'),
-    Dense(50, activation='relu'),
-    Dense(1, activation='sigmoid')
-])
+try:
+    model = Sequential([
+        Flatten(input_shape=(150, 150, 3)),
+        Dense(5000, activation='relu'),
+        Dense(500, activation='relu'),
+        Dense(50, activation='relu'),
+        Dense(1, activation='sigmoid')
+    ])
 
-model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
-# Entraînement du modèle
-model.fit(train_generator, epochs=10)
+    # Entraînement du modèle
+    model.fit(train_generator, epochs=10)
+except Exception as e:
+    print(f"Erreur lors de l'entraînement du modèle: {e}")
+    raise
