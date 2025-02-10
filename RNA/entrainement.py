@@ -6,8 +6,10 @@ from keras.layers import Dense, Flatten
 print("Début du script")
 
 # Afficher le contenu du répertoire
-data_dir = '/img'
+data_dir = './img'  # Utilisez un chemin relatif pour le répertoire img
 print(f"Contenu de {data_dir} :")
+if not os.path.exists(data_dir):
+    raise ValueError(f"Le répertoire {data_dir} n'existe pas.")
 for root, dirs, files in os.walk(data_dir):
     for name in files:
         print(os.path.join(root, name))
