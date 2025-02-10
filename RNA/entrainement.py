@@ -1,37 +1,35 @@
-import tensorflow as tf
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-import numpy as np
+import os
+from keras.preprocessing.image import ImageDataGenerator
+from keras.models import Sequential
+from keras.layers import Dense, Conv2D, Flatten
 
-# Définir les dimensions des images
-img_height, img_width = 64, 64
+# Afficher le contenu du répertoire
+data_dir = '/img'
+print(f"Contenu de {data_dir} :")
+for root, dirs, files in os.walk(data_dir):
+    for name in files:
+        print(os.path.join(root, name))
 
-# Créer un générateur d'images pour l'entraînement
-train_datagen = ImageDataGenerator(rescale=1./255)
-
-# Charger les images d'entraînement à partir du dossier 'img'
-train_generator = train_datagen.flow_from_directory(
-    '/img',
-    target_size=(img_height, img_width),
+# Configuration du générateur de données
+datagen = ImageDataGenerator(rescale=1./255)
+train_generator = datagen.flow_from_directory(
+    data_dir,
+    target_size=(150, 150),
     batch_size=32,
-    class_mode='binary')
+    class_mode=None,  # Utilisez None si vous n'avez pas de classes
+    shuffle=True
+)
 
-# Définir le modèle de réseau de neurones
-model = Sequential()
-model.add(Dense(5000, input_shape=(img_height, img_width, 3), activation='relu'))
-model.add(Dense(500, activation='relu'))
-model.add(Dense(50, activation='relu'))
-model.add(Dense(1, activation='sigmoid'))
+# Modèle avec l'architecture 5000 -> 500 -> 50 -> 1
+model = Sequential([
+    Flatten(input_shape=(150, 150, 3)),
+    Dense(5000, activation='relu'),
+    Dense(500, activation='relu'),
+    Dense(50, activation='relu'),
+    Dense(1, activation='sigmoid')
+])
 
-# Compiler le modèle
-model.compile(optimizer=Adam(), loss='binary_crossentropy', metrics=['accuracy'])
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
-# Entraîner le modèle
+# Entraînement du modèle
 model.fit(train_generator, epochs=10)
-
-# Sauvegarder le modèle entraîné
-model.save('RNA/model.h5')
-
-print("Modèle entraîné et sauvegardé avec succès.")
