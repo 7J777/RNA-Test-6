@@ -19,9 +19,9 @@ jobs:
       with:
         python-version: '3.8'
 
-    - name: Install dependencies
+    - name: Upgrade pip and Install dependencies
       run: |
-        python3.8 -m pip install --upgrade pip
+        python -m pip install --upgrade pip
         pip install keras pillow numpy tensorflow scipy
 
     - name: Run training script
@@ -33,3 +33,27 @@ jobs:
       with:
         name: trained-model
         path: RNA/model.h5
+
+  upload_and_commit:
+    needs: build
+    runs-on: macos-latest  # Changez ceci à windows-latest ou ubuntu-latest si nécessaire
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Download artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: trained-model
+        path: RNA/
+
+    - name: Commit and push model
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add RNA/model.h5
+        git commit -m "Add trained model"
+        git push origin main
