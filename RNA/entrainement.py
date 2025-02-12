@@ -66,6 +66,9 @@ try:
     # Entraînement du modèle
     model.fit(train_generator, epochs=10)
     print("Entraînement du modèle terminé")
+    # Sauvegarde du modèle
+    model.save('RNA/model.h5')
+    print("Modèle sauvegardé")
 except Exception as e:
     print(f"Erreur lors de l'entraînement du modèle: {e}")
     raise
