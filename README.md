@@ -31,3 +31,10 @@ Pour accéder au fichier `model.h5` après l'entraînement du modèle :
 Pour utiliser le modèle `model.h5` dans votre propre script Python, suivez les étapes ci-dessous :
 
 *(A venir n'a pas encore été définis)*
+
+## Modification à venir
+
+1. intégration d'un script capable d'exécuter 'model.h5'
+2. Ajout d'une application ou d'un site web qui utilise ce script
+3. Ajout d'imlage dans le dossier img
+
