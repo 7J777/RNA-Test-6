@@ -22,7 +22,7 @@ Le workflow CI est configuré pour s'exécuter à chaque push ou pull request su
 
 Pour accéder au fichier `model.h5` après l'entraînement du modèle :
 
-1. Allez dans l'onglet "Actions" de votre dépôt GitHub.
+1. Allez dans l'onglet "Actions" du dépôt GitHub.
 2. Sélectionnez le workflow CI.
 3. Choisissez la dernière exécution réussie du workflow.
 4. Téléchargez l'artifact nommé `trained-model`.
