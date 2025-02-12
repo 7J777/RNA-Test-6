@@ -19,7 +19,7 @@ jobs:
       with:
         python-version: '3.8'
 
-    - name: Install dependencies
+    - name: Upgrade pip and Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install keras pillow numpy tensorflow scipy
@@ -57,9 +57,12 @@ jobs:
       run: git config --global http.postBuffer 157286400
 
     - name: Commit and push model
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Utiliser le jeton GitHub pour l'authentification
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git add RNA/model.h5
         git commit -m "Add trained model"
+        git remote set-url origin https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
         git push origin main
