@@ -30,4 +30,4 @@ Pour accéder au fichier `model.h5` après l'entraînement du modèle :
 
 Pour utiliser le modèle `model.h5` dans votre propre script Python, suivez les étapes ci-dessous :
 
-**(A venir n'a pas encore été définis)**
+*(A venir n'a pas encore été définis)*
