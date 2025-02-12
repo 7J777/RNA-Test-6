@@ -38,6 +38,9 @@ jobs:
     needs: build
     runs-on: macos-latest  # Changez ceci à windows-latest ou ubuntu-latest si nécessaire
 
+    permissions:
+      contents: write  # Ajoutez cette ligne pour donner les permissions d'écriture
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
