@@ -17,12 +17,17 @@ Le workflow CI est configuré pour s'exécuter à chaque push ou pull request su
 3. Installe les dépendances nécessaires (`keras`, `pillow`, `numpy`, `tensorflow`, `scipy`).
 4. Exécute le script d'entraînement du modèle (`RNA/entrainement.py`).
 5. Télécharge le modèle entraîné en tant qu'artifact (`RNA/model.h5`).
+6. Ajoute le fichier `model.h5` au dépôt dans le dossier `RNA`.
 
 ### Accès au modèle entraîné
 
 Pour accéder au fichier `model.h5` après l'entraînement du modèle :
 
-1. Allez dans l'onglet "Actions" du dépôt GitHub.
-2. Sélectionnez le workflow CI.
-3. Choisissez la dernière exécution réussie du workflow.
-4. Téléchargez l'artifact nommé `trained-model`.
+1. Clonez le dépôt pour obtenir la dernière version du modèle.
+2. Le fichier `model.h5` se trouve dans le dossier `RNA`.
+
+## Utilisation du modèle entraîné
+
+Pour utiliser le modèle `model.h5` dans votre propre script Python, suivez les étapes ci-dessous :
+
+**(A venir n'a pas encore été définis)**
