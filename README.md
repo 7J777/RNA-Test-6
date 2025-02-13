@@ -36,5 +36,5 @@ Pour utiliser le modèle `model.h5` dans votre propre script Python, suivez les 
 
 1. intégration d'un script capable d'exécuter 'model.h5'
 2. Ajout d'une application ou d'un site web qui utilise ce script
-3. Ajout d'imlage dans le dossier ´img'
+3. Ajout d'imlage dans le dossier img
 
