@@ -52,7 +52,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y wget
-        wget -O gdrive https://drive.google.com/uc?id=0B3X9GlR6EmbnN0FBZEVQW3Z5eDg
+        wget -O gdrive https://github.com/prasmussen/gdrive/releases/download/2.1.0/gdrive-linux-x64
         chmod +x gdrive
         sudo install gdrive /usr/local/bin/gdrive
 
