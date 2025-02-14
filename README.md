@@ -22,7 +22,7 @@ Le workflow `CI` (`main.yml`) est configuré pour s'exécuter à chaque push ou 
 
 Pour accéder au fichier `model.h5` après l'entraînement du modèle :
 
-1. Allez dans l'onglet `Action` cherchez la dernière exécution réussie.
+1. Allez dans l'onglet `Action` cherchez la dernière exécution.
 2. Télécharger `model.h5` en tant qu'artifact.
 
 ## Utilisation du modèle entraîné
