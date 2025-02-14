@@ -2,6 +2,13 @@
 
 Ce projet utilise un réseau de neurones artificiels pour l'entraînement d'un modèle de classification d'images utilisant `Keras` et `TensorFlow`.
 
+## Sommaire
+
+- [Structure du projet](#structure-du-projet)
+- [Exécution du workflow CI](#exécution-du-workflow-ci)
+- [Utilisation du modèle entraîné](#utilisation-du-modèle-entraîné)
+- [Modifications à venir](#modifications-à-venir)
+
 ## Structure du projet
 
 - `.github/workflows/` : Contient les fichiers de configuration pour GitHub Actions.
@@ -27,15 +34,13 @@ Pour accéder au fichier `model.h5` après l'entraînement du modèle :
 
 ## Utilisation du modèle entraîné
 
-Pour utiliser le modèle `model.h5` suivez les étapes ci-dessous :
+Pour utiliser le modèle `model.h5`, suivez les étapes ci-dessous :
 
 *(A venir n'a pas encore été définis)*
 
-##   
-#### Modification à venir
+## Modifications à venir
 
 1. Ajout dans le workflow d'une automatisation qui télécharge le modèle `model.h5` dans le répertoire `/RNA`
-2. intégration d'un script capable d'exécuter `model.h5`
+2. Intégration d'un script capable d'exécuter `model.h5`
 3. Ajout d'une application ou d'un site web qui utilise ce script
-4. Ajout d'imlage dans le dossier `img`
-
+4. Ajout d'images dans le dossier `img`
