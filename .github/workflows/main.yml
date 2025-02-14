@@ -47,14 +47,20 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Install git lfs
+      run: |
+        git lfs install
+
     - name: Download artifact
       uses: actions/download-artifact@v4
       with:
         name: trained-model
         path: RNA/
 
-    - name: Increase Git buffer size
-      run: git config --global http.postBuffer 157286400
+    - name: Track model file with git lfs
+      run: |
+        git lfs track "RNA/model.h5"
+        git add .gitattributes
 
     - name: Commit and push model
       env:
