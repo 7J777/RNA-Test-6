@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest  # Changez ceci à windows-latest ou ubuntu-latest si nécessaire
+    runs-on: macos-latest
 
     steps:
     - name: Checkout repository
@@ -19,9 +19,9 @@ jobs:
       with:
         python-version: '3.8'
 
-    - name: Upgrade pip and Install dependencies
+    - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
+        python3.8 -m pip install --upgrade pip
         pip install keras pillow numpy tensorflow scipy
 
     - name: Run training script
@@ -34,22 +34,13 @@ jobs:
         name: trained-model
         path: RNA/model.h5
 
-  upload_and_commit:
+  upload_to_drive:
     needs: build
-    runs-on: macos-latest  # Changez ceci à windows-latest ou ubuntu-latest si nécessaire
-
-    permissions:
-      contents: write  # Ajoutez cette ligne pour donner les permissions d'écriture
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Install git lfs
-      run: |
-        git lfs install
 
     - name: Download artifact
       uses: actions/download-artifact@v4
@@ -57,18 +48,53 @@ jobs:
         name: trained-model
         path: RNA/
 
-    - name: Track model file with git lfs
+    - name: Install gdrive
       run: |
-        git lfs track "RNA/model.h5"
-        git add .gitattributes
+        sudo apt-get update
+        sudo apt-get install -y wget
+        wget -O gdrive https://drive.google.com/uc?id=0B3X9GlR6EmbnN0FBZEVQW3Z5eDg
+        chmod +x gdrive
+        sudo install gdrive /usr/local/bin/gdrive
 
-    - name: Commit and push model
+    - name: Upload model to Google Drive
       env:
-        PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}  # Utiliser le PAT pour l'authentification
+        GDRIVE_CREDENTIALS: ${{ secrets.GDRIVE_CREDENTIALS }}
+      run: |
+        echo "$GDRIVE_CREDENTIALS" > gdrive-service-account.json
+        gdrive --service-account gdrive-service-account.json upload RNA/model.h5 --parent 1vRuDW6sRB_jAfH3QWuQQwYcwLjzfpcrg
+
+  download_and_commit:
+    needs: upload_to_drive
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install gdrive
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget
+        wget -O gdrive https://drive.google.com/uc?id=0B3X9GlR6EmbnN0FBZEVQW3Z5eDg
+        chmod +x gdrive
+        sudo install gdrive /usr/local/bin/gdrive
+
+    - name: Download model from Google Drive
+      env:
+        GDRIVE_CREDENTIALS: ${{ secrets.GDRIVE_CREDENTIALS }}
+      run: |
+        echo "$GDRIVE_CREDENTIALS" > gdrive-service-account.json
+        gdrive --service-account gdrive-service-account.json list --query "name contains 'model.h5'" --max 1 --no-header > file_id.txt
+        FILE_ID=$(awk '{print $1}' file_id.txt)
+        gdrive --service-account gdrive-service-account.json download $FILE_ID --path RNA/
+
+    - name: Commit and push model metadata
+      env:
+        PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add RNA/model.h5
-        git commit -m "Add trained model"
+        git add RNA/model_metadata.txt
+        git commit -m "Add model metadata"
         git remote set-url origin https://${{ github.actor }}:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/${{ github.repository }}.git
         git push origin main
