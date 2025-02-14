@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
@@ -36,7 +36,7 @@ jobs:
 
   upload_to_drive:
     needs: build
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
@@ -65,7 +65,7 @@ jobs:
 
   download_and_commit:
     needs: upload_to_drive
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
