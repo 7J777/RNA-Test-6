@@ -52,7 +52,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y wget
-        wget -O gdrive https://github.com/gdrive-org/gdrive/releases/download/2.1.0/gdrive-linux-x64
+        wget -O gdrivehttps://github.com/glotlabs/gdrive/releases/download/v3.9.1/gdrive-linux-x64
         chmod +x gdrive
         sudo install gdrive /usr/local/bin/gdrive
 
@@ -75,7 +75,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y wget
-        wget -O gdrive https://github.com/gdrive-org/gdrive/releases/download/2.1.0/gdrive-linux-x64
+        wget -O gdrive https://github.com/glotlabs/gdrive/releases/download/v3.9.1/gdrive-linux-x64
         chmod +x gdrive
         sudo install gdrive /usr/local/bin/gdrive
 
