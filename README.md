@@ -43,4 +43,4 @@ Pour utiliser le modèle `model.h5`, suivez les étapes ci-dessous :
 1. Ajout dans le workflow d'une automatisation qui télécharge le modèle `model.h5` dans le répertoire `/RNA`
 2. Intégration d'un script capable d'exécuter `model.h5`
 3. Ajout d'une application ou d'un site web qui utilise ce script
-4. Ajout d'images dans le dossier `img`
+4. Ajout d'images dans le dossier `img`.
